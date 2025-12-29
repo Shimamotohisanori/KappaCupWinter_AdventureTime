@@ -1,7 +1,13 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "GameClear.h"
 #include "GameTitle.h"
 #include "SoundManager.h"
+namespace
+{
+	const char* PRESS_BUTTON_TO_TITLE_SPRITE_FILEPATH = "Assets/sprite/ClearPressButtonSprite.dds";
+
+	const Vector3 PRESS_BUTTON_TO_TITLE_SPRITE_POS = { 60.0f,-400.0f,0.0f };//„Éú„Çø„É≥„ÇíÊäº„Åó„Å¶„Çø„Ç§„Éà„É´„Å´Êàª„Çã„ÅÆÁîªÂÉè„ÅÆ‰ΩçÁΩÆ
+}
 GameClear::GameClear()
 {
 }
@@ -14,6 +20,9 @@ bool GameClear::Start()
 {
 	m_GameClearRender.Init("Assets/sprite/GameClear1.dds", 1920.0f, 1080.0f);
 
+	p_pressAnyButtonToTitleSpriteRender.Init(PRESS_BUTTON_TO_TITLE_SPRITE_FILEPATH, 1200.0f, 400.0f);
+	p_pressAnyButtonToTitleSpriteRender.SetPosition(PRESS_BUTTON_TO_TITLE_SPRITE_POS);
+
 	SoundManager* sound = FindGO<SoundManager>("soundmanager");
 	p_gameClearBGM = sound->PlayingSound(enSound_GameClearBGM);
 
@@ -23,11 +32,40 @@ bool GameClear::Start()
 void GameClear::Update()
 {
 	GameClearManager();
+	FadeManager();
+	p_pressAnyButtonToTitleSpriteRender.Update();
 }
+
+void GameClear::FadeManager()
+{
+	switch (p_state)
+	{
+	case enState_FadeIn:
+		p_currentAlpha -= 0.5f * g_gameTime->GetFrameDeltaTime();
+		if (p_currentAlpha <= 0.0f)
+		{
+			p_currentAlpha = 0.0f;
+			p_state = enState_FadeOut;
+		}
+		break;
+
+	case enState_FadeOut:
+		p_currentAlpha += 0.5 * g_gameTime->GetFrameDeltaTime();
+		if (p_currentAlpha >= 1.0f)
+		{
+			p_currentAlpha = 1.0f;
+			p_state = enState_FadeIn;
+		}
+		break;
+	default:
+		break;
+	}
+}
+
 
 void GameClear::GameClearManager()
 {
-	//âΩÇ©ÇÃÉ{É^ÉìÇ™âüÇ≥ÇÍÇƒÇ¢ÇΩÇÁ
+	//‰Ωï„Åã„ÅÆ„Éú„Çø„É≥„ÅåÊäº„Åï„Çå„Å¶„ÅÑ„Åü„Çâ
 	if (g_pad[0]->IsPressAnyKey() && !p_isNewTitle)
 	{
 		SoundManager* sound = FindGO<SoundManager>("soundmanager");
@@ -55,4 +93,15 @@ void GameClear::GameClearManager()
 void GameClear::Render(RenderContext& rc)
 {
 	m_GameClearRender.Draw(rc);
+	if (p_currentAlpha > 0.0f)
+	{
+		p_pressAnyButtonToTitleSpriteRender.SetMulColor(
+			Vector4{
+				1.0f,
+				1.0f,
+				1.0f,
+				p_currentAlpha }
+				);
+		p_pressAnyButtonToTitleSpriteRender.Draw(rc);
+	}
 }

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 class Game;
 class GameTitle : public IGameObject
 {
@@ -8,10 +8,12 @@ public:
 	bool Start();
 	void Update();
 	void TitleManager();
-	void FadeManager();
 	void Render(RenderContext& rc);
 
 private:
+
+	void FadeManager();
+
 	SpriteRender p_titleSpriteRender;
 	SpriteRender p_titlePressButtonSpriteRender;
 	Vector3 p_titlePressButtonSpritePos = Vector3::Zero;
@@ -23,14 +25,14 @@ private:
 
 	enum EnState
 	{
-		enState_FadeIn,//ƒtƒF[ƒhƒCƒ“’†
-		enState_FadeOut,//ƒtƒF[ƒhƒAƒEƒg’†
+		enState_FadeIn,//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ä¸­
+		enState_FadeOut,//ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆä¸­
 	};
-	EnState p_state = enState_FadeIn;//Œ»İ‚Ìó‘Ô
+	EnState p_state = enState_FadeIn;//ç¾åœ¨ã®çŠ¶æ…‹
 	
 	float p_currentAlpha = 1.0f;
-	float p_deltatime = 0.0f;//‰æ–Ê‚ÌˆÚs‚Ég‚¤ŠÔ
+	float p_deltatime = 0.0f;//ç”»é¢ã®ç§»è¡Œã«ä½¿ã†æ™‚é–“
 
-	bool p_isNewGame = false;//ƒQ[ƒ€‰æ–Ê‚ÉˆÚs‚Å‚«‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+	bool p_isNewGame = false;//ã‚²ãƒ¼ãƒ ç”»é¢ã«ç§»è¡Œã§ãã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
 };
 

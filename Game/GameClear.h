@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 class GameTitle;
 class GameClear : public IGameObject
 {
@@ -15,11 +15,27 @@ public:
 
 
 private:
+
+	void FadeManager();
+
 	SoundSource* p_gameClearBGM;
 	SoundSource* p_gameClearDecisionSE;
 
-	float p_deltatime = 0.0f;//��ʂ̈ڍs�Ɏg������
+	//ボタンを押してねのスプライト
+	SpriteRender p_pressAnyButtonToTitleSpriteRender;
+	Vector3 p_pressAnyButtonToTitleSpritePos = Vector3::Zero;
 
-	bool p_isNewTitle = false;//�Q�[����ʂɈڍs�ł��邩�ǂ����̃t���O
+	enum EnState
+	{
+		enState_FadeIn,//フェードイン中
+		enState_FadeOut,//フェードアウト中
+	};
+	EnState p_state = enState_FadeIn;//現在の状態
+
+	float p_currentAlpha = 1.0f;
+
+	float p_deltatime = 0.0f;//画面の移行に使う時間
+
+	bool p_isNewTitle = false;//ゲーム画面に移行できるかどうかのフラグ
 };
 
