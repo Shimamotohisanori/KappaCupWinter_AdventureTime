@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 class GameTitle;
 class GameOver : public IGameObject
 {
@@ -8,6 +8,7 @@ public:
 	bool Start();
 	void Update();
 	void GameOverManager();
+
 	void Render(RenderContext& rc);
 
 	SpriteRender m_gameOverSpriteRender;
@@ -15,11 +16,12 @@ public:
 
 
 private:
+
 	SoundSource* p_gameOverBGM;
 	SoundSource* p_gameOverDecisionSE;
 
-	float p_deltatime = 0.0f;//‰æ–Ê‚ÌˆÚs‚Ég‚¤ŠÔ
+	float p_deltatime = 0.0f;//ç”»é¢ã®ç§»è¡Œã«ä½¿ã†æ™‚é–“
 
-	bool p_isNewTitle = false;//ƒQ[ƒ€‰æ–Ê‚ÉˆÚs‚Å‚«‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+	bool p_isNewTitle = false;//ã‚²ãƒ¼ãƒ ç”»é¢ã«ç§»è¡Œã§ãã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
 };
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "GameOver.h"
 #include "GameTitle.h"
 #include "SoundManager.h"
@@ -27,7 +27,7 @@ void GameOver::Update()
 
 void GameOver::GameOverManager()
 {
-	//‰½‚©‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
+	//ä½•ã‹ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
 	if (g_pad[0]->IsPressAnyKey() && !p_isNewTitle)
 	{
 		SoundManager* sound = FindGO<SoundManager>("soundmanager");
